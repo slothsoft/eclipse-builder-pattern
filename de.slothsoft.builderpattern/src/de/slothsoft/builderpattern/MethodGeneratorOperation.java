@@ -36,7 +36,6 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jdt.internal.corext.CorextMessages;
-import org.eclipse.jdt.internal.corext.ValidateEditException;
 import org.eclipse.jdt.internal.corext.codemanipulation.CodeGenerationMessages;
 import org.eclipse.jdt.internal.corext.codemanipulation.CodeGenerationSettings;
 import org.eclipse.jdt.internal.corext.codemanipulation.GetterSetterUtil;
@@ -110,7 +109,7 @@ public final class MethodGeneratorOperation implements IWorkspaceRunnable {
 	}
 
 	static void applyEdit(ICompilationUnit cu, TextEdit edit, boolean save, IProgressMonitor monitor)
-			throws CoreException, ValidateEditException {
+			throws CoreException {
 		IFile file = (IFile) cu.getResource();
 		if (!save || !file.exists()) {
 			cu.applyTextEdit(edit, monitor);
@@ -122,7 +121,7 @@ public final class MethodGeneratorOperation implements IWorkspaceRunnable {
 			try {
 				IStatus status = Resources.makeCommittable(file, null);
 				if (!status.isOK()) {
-					throw new ValidateEditException(status);
+					throw new CoreException(status);
 				}
 				cu.applyTextEdit(edit, SubMonitor.convert(monitor).split(1));
 				cu.save(SubMonitor.convert(monitor).split(1), true);

@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 
 public final class DialogUtil {
 
@@ -31,7 +32,7 @@ public final class DialogUtil {
 			CompilationUnitEditor unitEditor = editor;
 			IType type = findSelectedType(editor);
 			IField[] preselected = null;
-			openDialog(shell, unitEditor, type, preselected, (s) -> MethodGeneratorUtil.generate(editor, s));
+			openDialog(shell, unitEditor, type, preselected, (s) -> MethodGeneratorUtil.generate((IEditorPart) editor, s));
 		} catch (CoreException e) {
 			ExceptionHandler.handle(e, shell, ActionMessages.AddGetterSetterAction_error_title,
 					ActionMessages.AddGetterSetterAction_error_actionfailed);
