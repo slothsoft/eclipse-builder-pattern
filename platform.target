@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="BuilderPattern" sequenceNumber="22">
+<locations>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<unit id="org.eclipse.equinox.sdk.feature.group" version="3.15.0.v20180904-1442"/>
+		<unit id="org.eclipse.platform.sdk" version="4.9.0.I20180906-0745"/>
+		<repository location="http://download.eclipse.org/releases/2018-09"/>
+	</location>
+</locations>
+<environment>
+	<os>win32</os>
+	<ws>win32</ws>
+	<arch>x86</arch>
+</environment>
+</target>

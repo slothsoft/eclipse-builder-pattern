@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.slothsoft.builderpattern.feature"
+      label="Builder Pattern Plug-in"
+      version="1.1.0.qualifier"
+      provider-name="Slothsoft">
+
+   <description url="https://github.com/slothsoft/eclipse-plugins/wiki/Builder-Pattern-Plug-in">
+      A small plug-in that helps you create not only getters and setters, but builder methods, too. Works very similar (and is actually based on) the Getter / Setter dialog in the Eclipse JDT.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="de.slothsoft.builderpattern"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+</feature>
