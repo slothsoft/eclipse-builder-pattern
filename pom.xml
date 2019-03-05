@@ -7,6 +7,10 @@
 	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<name>Builder Pattern Plug-in</name>
+	<description>A small plug-in that helps you create not only getters and setters, but fluent methods, too. </description>
+	<url>https://github.com/slothsoft/eclipse-builder-pattern</url>
+
 	<modules>
 		<module>de.slothsoft.builderpattern</module>
 		<module>de.slothsoft.builderpattern.feature</module>
@@ -59,6 +63,85 @@
 					</environments>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:git://github.com/slothsoft/eclipse-builder-pattern.git</connection>
+		<developerConnection>scm:git:github.com/slothsoft/eclipse-builder-pattern.git</developerConnection>
+		<url>https://github.com/slothsoft/eclipse-builder-pattern</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>sschulz</id>
+			<name>Stef Schulz</name>
+			<email>s.schulz@slothsoft.de</email>
+		</developer>
+	</developers>
+
 </project>
