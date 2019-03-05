@@ -2,7 +2,7 @@
 <feature
       id="de.slothsoft.builderpattern.feature"
       label="Builder Pattern Plug-in"
-      version="1.1.1.qualifier"
+      version="1.2.0.qualifier"
       provider-name="Slothsoft">
 
    <description url="https://github.com/slothsoft/eclipse-plugins/wiki/Builder-Pattern-Plug-in">

@@ -14,13 +14,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -35,13 +36,12 @@ import org.eclipse.jdt.core.dom.NodeFinder;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
+import org.eclipse.jdt.internal.core.manipulation.StubUtility;
 import org.eclipse.jdt.internal.corext.CorextMessages;
 import org.eclipse.jdt.internal.corext.codemanipulation.CodeGenerationMessages;
 import org.eclipse.jdt.internal.corext.codemanipulation.CodeGenerationSettings;
 import org.eclipse.jdt.internal.corext.codemanipulation.GetterSetterUtil;
 import org.eclipse.jdt.internal.corext.codemanipulation.IRequestQuery;
-import org.eclipse.jdt.internal.corext.codemanipulation.StubUtility;
-import org.eclipse.jdt.internal.corext.codemanipulation.StubUtility2;
 import org.eclipse.jdt.internal.corext.dom.ASTNodes;
 import org.eclipse.jdt.internal.corext.dom.ModifierRewrite;
 import org.eclipse.jdt.internal.corext.refactoring.util.RefactoringASTParser;
@@ -193,12 +193,40 @@ public final class MethodGeneratorOperation implements IWorkspaceRunnable {
 			} else {
 				sibling = this.methodGeneratorSettings.position;
 			}
-			ASTNode insertion = StubUtility2.getNodeToInsertBefore(rewrite, sibling);
+			ASTNode insertion = getNodeToInsertBefore(rewrite, sibling);
 			addNewAccessor(type, field, GetterSetterUtil.getGetterStub(field, name, this.settings.createComments,
 					this.methodGeneratorSettings.visibility | (field.getFlags() & Flags.AccStatic)), rewrite, insertion);
 		}
 	}
 
+	/**
+	 * Evaluates the insertion position of a new node.
+	 *
+	 * @param listRewrite The list rewriter to which the new node will be added
+	 * @param sibling The Java element before which the new element should be added.
+	 * @return the AST node of the list to insert before or null to insert as last.
+	 * @throws JavaModelException thrown if accessing the Java element failed
+	 */
+
+	public static ASTNode getNodeToInsertBefore(ListRewrite listRewrite, IJavaElement sibling) throws JavaModelException {
+		if (sibling instanceof IMember) {
+			ISourceRange sourceRange= ((IMember) sibling).getSourceRange();
+			if (sourceRange == null) {
+				return null;
+			}
+			int insertPos= sourceRange.getOffset();
+
+			List<? extends ASTNode> members= listRewrite.getOriginalList();
+			for (int i= 0; i < members.size(); i++) {
+				ASTNode curr= members.get(i);
+				if (curr.getStartPosition() >= insertPos) {
+					return curr;
+				}
+			}
+		}
+		return null;
+}
+	
 	/**
 	 * Generates a new setter method for the specified field
 	 * 
@@ -222,7 +250,7 @@ public final class MethodGeneratorOperation implements IWorkspaceRunnable {
 			} else {
 				sibling = this.methodGeneratorSettings.position;
 			}
-			ASTNode insertion = StubUtility2.getNodeToInsertBefore(rewrite, sibling);
+			ASTNode insertion = getNodeToInsertBefore(rewrite, sibling);
 			addNewAccessor(type, field, GetterSetterUtil.getSetterStub(field, name, this.settings.createComments,
 					this.methodGeneratorSettings.visibility | (field.getFlags() & Flags.AccStatic)), rewrite, insertion);
 			if (Flags.isFinal(field.getFlags())) {
@@ -258,7 +286,7 @@ public final class MethodGeneratorOperation implements IWorkspaceRunnable {
 			} else {
 				sibling = this.methodGeneratorSettings.position;
 			}
-			ASTNode insertion = StubUtility2.getNodeToInsertBefore(rewrite, sibling);
+			ASTNode insertion = getNodeToInsertBefore(rewrite, sibling);
 			boolean hasSetter = hasSetter(field);
 			BuilderPatternSettings builderSettings = new BuilderPatternSettings(field).builderName(name)
 					.hasSetter(hasSetter).addComments(this.settings.createComments)
