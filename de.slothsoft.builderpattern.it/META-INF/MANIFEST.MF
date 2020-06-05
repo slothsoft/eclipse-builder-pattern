@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Builder Pattern IT Fragment
 Bundle-SymbolicName: de.slothsoft.builderpattern.it;singleton:=true
-Bundle-Version: 1.2.1
+Bundle-Version: 1.2.2.qualifier
 Bundle-Vendor: Slothsoft
 Fragment-Host: de.slothsoft.builderpattern
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
