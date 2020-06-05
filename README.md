@@ -39,6 +39,7 @@ You need at least **Java 8** or above to run the code.
 
 | Version       | Eclipse |
 | ------------- | ------- |
+| [1.2.1](https://github.com/slothsoft/eclipse-builder-pattern/milestone/4?closed=1) | `2018-12` |
 | [1.2.0](https://github.com/slothsoft/eclipse-builder-pattern/milestone/3?closed=1) | `2018-12` |
 | [1.1.0](https://github.com/slothsoft/eclipse-builder-pattern/milestone/2?closed=1) | `2018-09` |
 | [1.0.4](https://github.com/slothsoft/eclipse-builder-pattern/milestone/1?closed=1) | `oxygen`|
