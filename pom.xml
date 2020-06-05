@@ -77,6 +77,7 @@
 						org.apache.maven.plugins:maven-scm-plugin:${maven-scm-version}:add
 						org.apache.maven.plugins:maven-scm-plugin:${maven-scm-version}:checkin</completionGoals>
 					<tagNameFormat>@{project.version}</tagNameFormat>
+					<pushChanges>false</pushChanges>
 				</configuration>
 			</plugin>
 
