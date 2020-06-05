@@ -146,8 +146,7 @@
 	</build>
 
 	<scm>
-		<connection>scm:git:git://github.com/slothsoft/eclipse-builder-pattern.git</connection>
-		<developerConnection>scm:git:github.com/slothsoft/eclipse-builder-pattern.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/slothsoft/eclipse-builder-pattern.git</developerConnection>
 		<url>https://github.com/slothsoft/eclipse-builder-pattern</url>
 		<tag>HEAD</tag>
 	</scm>
