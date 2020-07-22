@@ -5,7 +5,7 @@
       version="1.2.2.qualifier"
       provider-name="Slothsoft">
 
-   <description url="https://github.com/slothsoft/eclipse-plugins/wiki/Builder-Pattern-Plug-in">
+   <description url="https://github.com/slothsoft/eclipse-builder-pattern/wiki">
       A small plug-in that helps you create not only getters and setters, but builder methods, too. Works very similar (and is actually based on) the Getter / Setter dialog in the Eclipse JDT.
    </description>
 
